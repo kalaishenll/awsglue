@@ -1,0 +1,30 @@
+Resources:
+  GlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: MyGlueJob
+      Role: !GetAtt GlueServiceRole.Arn
+      Command:
+        Name: glueet1
+        ScriptLocation: s3://mycodepipelinebucket24/script/job_1.py
+      DefaultArguments:
+        "--TempDir": "s3://mycodepipelinebucket24/temp/"
+      GlueVersion: "2.0"
+      WorkerType: G.1X
+      NumberOfWorkers: 2
+
+
+GlueServiceRole:
+  Type: AWS:IAM:Role
+  Properties:
+    RoleName: !Sub "${AWS::StackName}-MyRoleForGlue"
+    AssumeRolePolicyDocument:
+      Version: "2012-10-17"
+      Statement:
+        - Effect: Allow
+          Principal:
+            Service: glue.amazonaws.com
+          Action: sts:AssumeRole
+    ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/AmazonnS3FullAccess
+      - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
