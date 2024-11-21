@@ -15,7 +15,7 @@ Resources:
 
 
 GlueServiceRole:
-  Type: AWS:IAM:Role
+  Type: AWS:IAM::Role
   Properties:
     RoleName: !Sub "${AWS::StackName}-MyRoleForGlue"
     AssumeRolePolicyDocument:
@@ -26,5 +26,5 @@ GlueServiceRole:
             Service: glue.amazonaws.com
           Action: sts:AssumeRole
     ManagedPolicyArns:
-      - arn:aws:iam::aws:policy/AmazonnS3FullAccess
+      - arn:aws:iam::aws:policy/AmazonS3FullAccess
       - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
